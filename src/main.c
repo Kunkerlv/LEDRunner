@@ -58,6 +58,10 @@ void __ISR (_TIMER_2_VECTOR, IPL7SRS) Timer2Handler (void){ //Called every 0.512
         if(LEDnum<0){LEDnum=8;}
         }
     }
+    
+    if(PORTDbits.RD9 == 1){
+    btn = !btn;
+    }   
 
     IFS0bits.T2IF = 0;// Reset Interrupt Flag
 }
@@ -73,9 +77,7 @@ int main (int argc, char *argv[]) {
     PORTD = 0b000000000; //RD0-RD8 OFF
     InitTimer2();
     while(1){
-        if(PORTDbits.RD9 == 1){
-        btn = !btn;
-        }      
+   
     }
     
 }
