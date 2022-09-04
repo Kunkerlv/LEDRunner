@@ -25,4 +25,4 @@ For testing and debugging a prototype was made also.
 
 Video: https://www.youtube.com/watch?v=uhHO4gy0djo
 
-![Prototype](https://www.youtube.com/watch?v=uhHO4gy0djo)
+![Prototype](proto.jpeg)
