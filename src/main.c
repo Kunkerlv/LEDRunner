@@ -15,7 +15,9 @@
 
 #define SYS_FREQ (4000000L) // 4MHz
 
-
+uint8_t TickTock = 0;
+int8_t LEDnum = 0;
+uint8_t btn = 0;
 
 void InitTimer2(){
     __builtin_disable_interrupts();
@@ -37,19 +39,43 @@ void InitTimer2(){
     __builtin_enable_interrupts();
 }
 
-void __ISR (_TIMER_2_VECTOR, IPL7SRS) Timer2Handler (void){ //Periods 0.512s
-
+void __ISR (_TIMER_2_VECTOR, IPL7SRS) Timer2Handler (void){ //Called every 0.512s
+    TickTock = !TickTock;
+    if(LEDnum>8){LEDnum=0;}
+    if(LEDnum<-1){LEDnum=8;}
+    
+    if (TickTock){ // 1
+        PORTD |= 1 << LEDnum;
+    }
+    
+    
+    if (!TickTock){// 2
+        PORTD &= 0 << LEDnum;
+        if(btn == 1){
+        LEDnum++;  
+        } else if (btn == 0){
+        LEDnum--;
+        if(LEDnum<0){LEDnum=8;}
+        }
+    }
 
     IFS0bits.T2IF = 0;// Reset Interrupt Flag
 }
 
+void LEDforward(void){
+    
+}
+
 int main (int argc, char *argv[]) {
+    
+
+    TRISD = 0x200; //RD0 - RD8 = OUTPUT, RD9 = INPUT
+    PORTD = 0b000000000; //RD0-RD8 OFF
     InitTimer2();
-
-    TRISD = 0x0000; //D All Outputs
-    PORTD = 0x0000; //D All OFF
-
     while(1){
-        
+        if(PORTDbits.RD9 == 1){
+        btn = !btn;
+        }      
     }
+    
 }
