@@ -23,4 +23,6 @@ java -jar ipecmd.jar -TPPM -32MX360F512L -main.hex -M -OB
 ## Prototype
 For testing and debugging a prototype was made also.
 
-![Prototype](proto.jpeg)
+Video: https://www.youtube.com/watch?v=uhHO4gy0djo
+
+![Prototype](https://www.youtube.com/watch?v=uhHO4gy0djo)
